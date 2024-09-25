@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+       
+        img{
+            height: 150px;
+            width: 150px;
+            box-shadow: 1px 1px 1px rgba(128, 128, 128, 0.384);
+            border-radius: 50%;
+        }
+        img:hover{
+            transform: rotate(360deg);
+            transition: all 2s ease-in-out;
+        }
+        #box{
+            padding: 20px;
+            position: absolute;
+            top: 10%;
+            left: 40%;
+            text-align: center;
+            width: max-content;
+            border-radius: 15px;
+            box-shadow: 2px 3px 5px rgba(128, 128, 128, 0.452);
+            color: rgba(0, 0, 0, 0.607);
+
+        }
+       
+        button{
+            margin: 10px;
+            padding: 8px;
+            width: 80px;
+            background: none;
+            border: none;
+            box-shadow: 2px 3px 5px rgba(128, 128, 128, 0.452);
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bolder;
+        }
+       
+        #no{
+            background: white;
+            z-index: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <img src="./img/c9c1c197-8445-4805-887c-0aa881148086.jfif" alt="" srcset="">
+        <h1 id="res">Treat?</h1>
+        <button id="yes">Yes</button>
+        <button id="no">No</button>
+    </div>
+    <script>
+        const dis = document.getElementById("res");
+        const yes = document.getElementById("yes");
+        const no = document.getElementById("no");
+        function move(){
+            var x = Math.random();
+           var x = x *100;
+           var x = parseInt(x);
+           if(x < 20){
+           var x = x+20;
+           return x;
+           }
+           var y = x*2;
+
+           no.style.position = "absolute";
+           no.style.top = x+"%";
+           no.style.left = y+"%";
+        }
+        no.onmouseover=()=>{
+           move();
+        }
+        no.onmousemove=()=>{
+            move();
+        }
+        yes.onclick=()=>{
+            dis.innerHTML = "Waiting..";
+            yes.style.display = "none";
+            no.style.display = "none";
+        }
+    </script>
+</body>
+</html>

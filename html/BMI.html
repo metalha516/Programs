@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI</title>
+    <style>
+        #box{
+            display: inline;
+            text-align: center;
+            position: absolute;
+            top: 15%;
+            left: 40%;
+            width: 300px;
+            height: fit-content;
+            background: rgba(204, 203, 203, 0.023);
+            box-shadow: 2px 4px 6px black;
+        }
+        #check{
+            display: flex;
+            padding-left: 50px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        .real_input{
+            width: 180px;
+            margin: 8px;
+            padding: 8px;
+            border: none;
+            background: none;
+            outline: none;
+            box-shadow: 0px 2px 0px rgba(128, 128, 128, 0.43);
+          
+        }
+        .real_input:hover{
+            border-bottom: 2px solid black;
+            transition: all 0.1s ease-out;
+        }
+        .real_input::placeholder{
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+        }
+        h1{
+            font-family: 'Courier New', Courier, monospace;
+        }
+        h2{
+            font-family: 'Courier New', Courier, monospace;
+        }
+        #lap_2{
+            margin-left: 30px;
+          
+        }
+        #submit{
+            margin: 20px;
+            padding: 8px;
+            width: 180px;
+            background: none;
+            border: none;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bolder;
+            box-shadow: 1px 2px 3px rgba(128, 128, 128, 0.43);
+        }
+        #submit:hover{
+            background: #000;
+            color: white;
+            transform: translateZ(-1px);
+            transition: all 0.4s ease-out;
+        }
+        label{
+            font-family: 'Courier New', Courier, monospace;
+            margin-left: 4px;
+            font-weight: bolder;
+        }
+        #primary{
+            display: block;
+        }
+        .res .bmr{
+            display: flex;
+            text-align: center;
+            padding-left: 25px;
+        }
+        #second{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <div id="primary">
+           <h2>BMI Calculator</h2>
+            <input type="text" id="weight" class="real_input" placeholder="Body weight (kg)"><br>
+            <input type="text" id="Height_feet" class="real_input" placeholder="Height (ft)"><br>
+            <input type=" text" id="Height_inch" class="real_input" placeholder="Height (inch)"><br>
+            <div id="check">
+               <div id="lap_1">
+                <input type="checkbox" id="Male"><label for="">Male</label><br>
+               </div>
+               <div id="lap_2">
+                <input type="checkbox" id="Female"><label for="">Female</label>
+               </div>
+            </div>
+            <input type="text" id="age" class="real_input" placeholder="Age"><br>
+            <button id="submit">Submit</button>
+        </div>
+        <div id="second">
+            <div class="res">
+                <h2>Your BMI is : </h2><h1 id="res">22.2</h1><br>
+                <h2>Your are <h2 id="cmt">Overweight</h2></h2>
+            </div>
+            <div class="bmr">
+                <h2>Your calori demand<h2 id="bmr">3534</h2></h2>
+            </div>
+        </div>
+    </div>
+    <script>
+        const prime = document.getElementById("primary");
+        const sec = document.getElementById("second");
+        const weight = document.getElementById("weight");
+        const Height_feet = document.getElementById("Height_feet");
+        const Height_inch = document.getElementById("Height_inch");
+        const age = document.getElementById("age");
+        const submit = document.getElementById("submit");
+        const male = document.getElementById("Male");
+        const female = document.getElementById("Female");
+        const result_bmi = document.getElementById("res");
+        const result_bmr = document.getElementById("bmr");
+        const comment = document.getElementById("cmt");
+      
+        function bmi(){
+            
+            var w = parseFloat(weight.value);
+            var h_f = parseFloat(Height_feet.value);
+            var h_i = parseFloat(Height_inch.value);
+            var h = (h_f*12);
+            h = h+h_i;
+            h = h*2.54;
+            h = h/100;
+            var bmi = w/h**2;
+            bmi = bmi.toFixed(2);
+            return bmi;
+        }
+       function bmi_check(x){
+            if(0<x && x<18.5){
+                comment.style.color = "blue";
+                return "Underweight";
+            }if(18.5<x && x<24.9){
+                comment.style.color = "green";
+                return "Normal";
+            }if(25<x && x<29.9){
+                comment.style.color = "yellow";
+                return "Overweight";
+            }if(30<x && x<34.9){
+                comment.style.color = "orange";
+                return "Obese";
+            }if(34.9<x){
+                comment.style.color = "red";
+                return "Extremely obese";
+            }
+       }
+       
+       function bmr(x){
+            var w = parseFloat(weight.value);
+            var h_f = parseFloat(Height_feet.value);
+            var h_i = parseFloat(Height_inch.value);
+            var in_age = parseFloat(age.value);
+            var h = (h_f*12);
+            h = h+h_i;
+            h = h*2.54;
+            h = h/100;
+           if(x==66){
+            var bmr_value = 66.5+(13.75*w)+(5.003*h)-(6.75*in_age);
+            bmr_value = bmr_value.toFixed(2);
+            return bmr_value;
+           }
+           if(x==655){
+            var bmr_value = 655.1+(9.563*w)+(1.850*h)-(4.676*in_age);
+            bmr_value = bmr_value.toFixed(2);
+            return bmr_value;
+           }
+       }
+       
+
+        submit.onclick =()=>{
+           if(male.checked && female.checked){
+            alert("Select only one");
+            window.location.reload();
+           }
+           if(male.checked){
+            prime.style.display = "none";
+            sec.style.display = "block";
+            result_bmi.innerHTML = bmi();
+            result_bmr.innerHTML = bmr(66);
+            comment.innerHTML = bmi_check(bmi());
+           }
+           if(female.checked){
+            submit.innerHTML = bmi();
+            alert(bmr(655));
+            prime.style.display = "none";
+            sec.style.display = "block";
+           }
+        
+
+        }
+       
+    </script>
+</body>
+</html>
+
+

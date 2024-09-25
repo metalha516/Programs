@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+   <style>
+    
+@import url('https://fonts.googleapis.com/css2?family=Platypi:ital,wght@0,300..800;1,300..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&family=Platypi:ital,wght@0,300..800;1,300..800&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&family=Pacifico&family=Platypi:ital,wght@0,300..800;1,300..800&display=swap');
+
+body{
+    background-color: darkgray;
+    height: 100vh;
+}
+
+div{
+    position: absolute;
+    top: 10%;
+    left: 40%;
+    background: rgb(179, 174, 174);
+    width: max-content;
+    box-shadow: 5px 5px 5px grey;
+    border-radius: 5px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    height: 300px;
+}
+input{
+    margin: 10px;
+    padding: 8px;
+    border-radius: 5px;
+    background: none;
+    border: none;
+    outline: none;
+    box-shadow: 1px 1px 1px rgba(63, 62, 62, 0.345) ;
+    color: black;
+}
+button{
+    margin: 10px  auto;
+    border-radius: 15px;
+    font-family: "Cabin", sans-serif;
+    border: none;
+    padding: 8px;
+    width: 150px;
+    font-weight: bold;
+    box-shadow: 2px 2px 1px rgba(63, 62, 62, 0.345);
+
+}
+h3{
+    font-family: "Pacifico", cursive;
+    font-weight: 800;
+    font-style: normal;
+   }
+   p{
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    font-family: "Platypi", serif;
+    transition: 0.6s all ease;
+   }
+@media only screen and (max-width: 767px){
+   div{
+    display: flex;
+    justify-content: center; /* Horizontally center */
+    align-items: center; /* Vertically center */
+    height: 100%;
+    margin-top: 20%;
+    flex-direction: column;
+    background: none;
+    padding: 18px;
+    width: 300px;
+    
+   }
+ 
+   input{
+    border: none;
+    outline: none;
+    text-decoration: none;
+    border-radius: 15px;
+    border-bottom: 1px solid  rgba(0, 0, 0, 0.452);
+    padding: 8px;
+    font-size: 14px;
+    box-shadow: 1px 1px 1px rgba(63, 62, 62, 0.345) ;
+    margin-top: -8px;
+    margin-bottom: 20px;
+   }
+   h3{
+    font-family: "Pacifico", cursive;
+    font-weight: 400;
+    font-style: normal;
+   }
+   button{
+    margin: 10px  auto;
+    border-radius: 15px;
+    font-family: "Cabin", sans-serif;
+    border: none;
+    padding: 8px;
+    width: 150px;
+    font-weight: bold;
+    box-shadow: 2px 2px 1px rgba(63, 62, 62, 0.345);
+   }
+   p{
+    font-size: 29px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    font-family: "Platypi", serif;
+    transition: 0.6s all ease;
+   }
+}
+   </style>
+</head>
+<body>
+   
+    <div class="container">
+    <h3>Bill Calculator</h3>
+    <input type="text" placeholder="Before Meter Unit" id="unit_1">
+    <input type="text" placeholder="After Meter Unit" id="unit_2">
+    <button onclick="Calculate()">Calculate</button>
+    <p id="output"></p>
+
+    </div>
+   
+    <script>
+        function Calculate(){
+    var unit_1 = document.getElementById('unit_1');
+    var unit_2 = document.getElementById('unit_2');
+    var unit_1 = unit_1.value;
+    var unit_2 = unit_2.value;
+    unit = unit_2-unit_1;
+    unit = parseFloat(unit);
+    var output = document.getElementById('output');
+    var rate_1 = 5.26;       // 0 to 75 = 5.26 tk 
+    var rate_2 = 7.20;      //  76 to 200 = 7.20 tk
+    var rate_3 = 7.59;     //   201 to 300 = 7.59 tk
+    var rate_4 = 8.02;    //   301 to 400 = 8.02  tk
+    var rate_5 = 12.67;  //   401 to 600 = 12.67 tk
+    var rate_6 = 14.61; //   600+ = 14.61 tk
+    if(unit > 0  && unit <= 75){
+       var bill = unit * rate_1;
+       bill = bill.toFixed(2);
+       output.innerHTML = bill+" tk";
+    }
+    if(unit> 76 && unit <= 200){
+        var x = unit - 76;
+        var bill = (x*rate_2)+(75*rate_1);
+        bill = bill.toFixed(2);
+        output.innerHTML = bill+" tk";
+    }
+    if(unit>201 && unit<=300){
+        var x = unit - 200;
+        var bill = (x*rate_3) + (125*rate_2) + (75 * rate_1);
+        bill = bill.toFixed(2);
+        output.innerHTML = bill+" tk";
+    }
+    if(unit>301 && unit<=400){
+        var x = unit - 300;
+        var bill = (x*rate_4) + (100*rate_3) + (125*rate_2) + (75*rate_1);
+        bill = bill.toFixed(2);
+        output.innerHTML = bill+" tk";
+    }
+    if(unit>401 && unit<=600){
+        var x = unit - 400;
+        var bill = (x*rate_5)+ (100*rate_4) + (100*rate_3) + (125*rate_2) + (75*rate_1);
+        bill = bill.toFixed(2);
+        output.innerHTML = bill+" tk";
+    }
+    if(unit>600){
+        var x = unit - 600;
+        var bill =(x*rate_6) + (200*rate_5) + (100*rate_4) + (100*rate_3) + (125*rate_2) + (75*rate_1);
+        bill = bill.toFixed(2);
+        output.innerHTML = bill+" tk";
+    }
+    
+}
+    </script>
+</body>
+</html>
